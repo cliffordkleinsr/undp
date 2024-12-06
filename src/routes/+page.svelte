@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Hero from '$lib/frontend/Hero.svelte';
+	import Question from '$lib/frontend/Question.svelte';
 </script>
 
-<Hero />
 <div class="flex justify-center gap-2">
 	<img
-		class="h-32 w-16"
+		class="w-14"
 		src="https://www.undp.org/sites/g/files/zskgke326/files/2022-04/undp-logo-blue.svg"
 		alt="undp"
 	/>
@@ -16,3 +16,7 @@
 		alt="uncdf"
 	/>
 </div>
+
+<Hero />
+
+<Question />

@@ -37,7 +37,7 @@
 								>
 								<a
 									class="text-start font-medium text-gray-600 hover:text-gray-400 focus:text-gray-400 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
-									href="/questionnaire">Questionnaire</a
+									href="/#questionnaire">Questionnaire</a
 								>
 							</div>
 						</Sheet.Header>
@@ -58,12 +58,12 @@
 				>
 				<a
 					class="font-medium text-gray-600 hover:text-gray-400 focus:text-gray-400 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
-					href="/questionnaire">Questionnaire</a
+					href="/#questionnaire">Questionnaire</a
 				>
-				<a
+				<!-- <a
 					class="font-medium text-gray-600 hover:text-gray-400 focus:text-gray-400 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
 					href="##">Work</a
-				>
+				> -->
 				<Modetoggle />
 			</div>
 		</div>

@@ -203,7 +203,7 @@
 	];
 </script>
 
-<div class="m-5">
+<div class="m-5" id="questionnaire">
 	<h1 class="text-center text-3xl font-semibold tracking-tight text-muted-foreground">
 		Questionnaire
 	</h1>
@@ -717,7 +717,7 @@
 					setTimeout(() => {
 						window.print();
 					}, 50);
-				}}>Print Out</Button
+				}}>Submit</Button
 			>
 		</div>
 	</div>
