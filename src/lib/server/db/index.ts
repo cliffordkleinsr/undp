@@ -1,0 +1,11 @@
+// import { drizzle } from 'drizzle-orm/postgres-js';
+// import postgres from 'postgres';
+import { env } from '$env/dynamic/private';
+// if (!env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+// const client = postgres(env.DATABASE_URL);
+// export const db = drizzle(client);
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
+if (!env.DB_FILE_NAME) throw new Error('DATABASE_URL is not set');
+const client = createClient({ url: env.DB_FILE_NAME });
+export const db = drizzle({ client, casing: 'snake_case' });

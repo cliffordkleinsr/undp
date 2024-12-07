@@ -4,203 +4,53 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import { onMount } from 'svelte';
+	import type { ActiveTable } from 'active-table';
+	// import { onMount, untrack } from 'svelte';
 	import { MediaQuery } from 'svelte/reactivity';
+	import {
+		coded_info,
+		presence,
+		cat_cust,
+		cred_prod,
+		rank_lon,
+		rank_impo_indv,
+		rank_imp_org,
+		rank_imp_bin_lon,
+		rank_imp_bin_lon_rej,
+		rank_imp_sav,
+		sav_prods,
+		ins_prods
+	} from './tabledata';
 
 	const isDesktop = new MediaQuery('min-width: 768px');
-	onMount(async () => {
-		await import('active-table');
-		isLoaded = true;
-	});
+
+	// stores
+	let codedinfo = $state() as (string | number)[][] | undefined;
 
 	let isLoaded = $state(false);
-	const coded_info = [
-		['Interview date (DD/MM/YYYY)', ''],
-		['Interviewer code', ''],
-		['Organization category (1=Bank, 2=MFI, 3=SACCO, 4=Other Informal Group, 5=Fintech', ''],
-		['Respondent category (1=Manager, 2=Staff member)', '']
-	];
-	const presence = [
-		['Camp', '# of branches (or groups)'],
-		['Dadaab', ''],
-		['Kakuma', ''],
-		['Kalobeyei', ''],
-		['Other (specify)', '']
-	];
+	let getInfo = $state() as (element: string) => Promise<any>;
+	$effect(() => {
+		(async () => {
+			await import('active-table');
+			isLoaded = true;
+		})();
 
-	const cat_cust = [
-		['Description', 'Forcibly displaced persons', 'Individuals from host communities'],
-		['Have a mobile phone registered in own name', '', ''],
-		['Own a smart phone', '', ''],
-		['Have a mobile money account registered in own name', '', '']
-	];
-
-	const cred_prod = [
-		[
-			'Name of Product',
-			'Settlements Offered',
-			'Eligibility Criteria for Borrower',
-			'Range of Product in KES',
-			'Range of Term of Product',
-			'Median Loan Amount Outstanding',
-			'Structure of Interest Rates and Fees',
-			'Number of Borrowers with Loans Outstanding',
-			'Digital?',
-			'Percent of Women Borrowers'
-		],
-		[
-			'Microbusiness loan',
-			'Kakuma',
-			`
-            1) Registered business with 2 years operation.
-            2) 50% collateral in account
-            3) Cosigner
-        `,
-			'10,000-30,000',
-			'30 days to 6 months',
-			'18,000',
-			`
-        KES 100 application fee.
-        10 percent interest rate per month
-        `,
-			'276',
-			'Yes',
-			'15%'
-		],
-		['', '', '', '', '', '', '', '', '', '']
-	];
-
-	const rank_lon = [
-		['Economic Activity', 'FDP', 'Host community'],
-		['Agriculture', '', ''],
-		['Trade (fruits, vegetables, other produce, meat, fish)', '', ''],
-		['Trade (clothes)', '', ''],
-		['Trade (electronics)', '', ''],
-		['Trade (chemists or pharmacies)', '', ''],
-		['Other trade', '', ''],
-		['Community or personal services (salon, barber etc.)', '', ''],
-		['Other community or personal services', '', ''],
-		['Manufacturing (furniture, textiles etc.)', '', ''],
-		['Construction', '', ''],
-		['Transport (boda boda, taxi etc.)', '', ''],
-		['Accommodation and food (bar, restaurant)', '', ''],
-		['Accommodation and food (hotel, lodge)', '', ''],
-		['Professional services (legal, accounting etc.)', '', ''],
-		['Other (specify)', '', '']
-	];
-
-	const rank_impo_indv = [
-		['Description', 'Rank'],
-		['Start a new business', ''],
-		['Manage short-term liquidity', ''],
-		['Purchase stock', ''],
-		['Other capital expenditure', ''],
-		['Pay off existing debt', ''],
-		['Pay salaries or wages', '']
-	];
-
-	const rank_imp_org = [
-		['Description', 'Rank'],
-		['Financial Literary', ''],
-		['Digital Literacy', ''],
-		['Access to a mobile phone', ''],
-		['Mobile money access', ''],
-		['Mobile network coverage', ''],
-		['SIM card KYC', ''],
-		['Unregistered business', ''],
-		['Lack of business records', ''],
-		['Location of business in risky area', ''],
-		['Distance of travel to bank branch', '']
-	];
-
-	const rank_imp_bin_lon = [
-		['Description', 'Rank'],
-		['Cost of capital', ''],
-		['Operational costs', ''],
-		['Risk premium', ''],
-		['Profit', ''],
-		['Provisioning for bad debt', '']
-	];
-
-	const rank_imp_bin_lon_rej = [
-		['Description', 'Rank'],
-		['Incomplete applications', ''],
-		['Underlying business to risky', ''],
-		['Lack of ID', ''],
-		['Lack of business registration or licenses', ''],
-		['Lack of collateral', ''],
-		['Lack of business accounts', ''],
-		['Government policies are too prohibitive', '']
-	];
-
-	const rank_imp_sav = [
-		['Description', 'Rank'],
-		['Start a new business', ''],
-		['To expand or invest in a business', ''],
-		['For emergencies (medical, burial)', ''],
-		['Education', ''],
-		['To meet day-to-day needs', ''],
-		['For later in life (old age)', ''],
-		['To pay salaries or wages', '']
-	];
-
-	const sav_prods = [
-		[
-			'Name of Product',
-			'Settlements Offered',
-			'Eligibility Criteria for Savings',
-			'Median Account Balance',
-			'Structure of Interest Rates and Fees',
-			'Number of individuals with Savings',
-			'Digital?',
-			'Percent of Women'
-		],
-		[
-			'School Saver',
-			'Kakuma',
-			`
-            1) National ID.
-            2) KES 1000 deposit
-        `,
-			'KES 1,530',
-			`
-            1) 5% APR.
-            2) KES 100 annual maintenance fee.
-            3) 50 KES per withdrawal.
-
-        `,
-			'2,360',
-			'Yes, M-PESA deposits and withdrawals',
-			'20%'
-		],
-		['', '', '', '', '', '', '']
-	];
-	const ins_prods = [
-		[
-			'Name of Product',
-			'Settlements Offered',
-			'Eligibility Criteria for Insurance',
-			'Value of Insurance Policy in KES',
-			'Structure of Interest Rates and Fees',
-			'Number of individuals with Insurance',
-			'Digital?',
-			'Percent of Women'
-		],
-		[
-			'MSME business insurance',
-			'Kakuma and Dadaab',
-			'Assets up to KES. 100,000',
-			'KES 1,530',
-			`
-           1) Coverage of all assets
-           2) Personal accident cover for business owner
-        `,
-			'KES XXX premium monthly',
-			'120',
-			'15%'
-		],
-		['', '', '', '', '', '', '']
-	];
+		getInfo = (element) => {
+			let tableElementRef = document.getElementById(element) as any;
+			let tableData: (string | number)[][];
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					if (tableElementRef) {
+						tableData = tableElementRef.getData();
+						console.log(tableData);
+						resolve(tableData);
+					} else {
+						console.error('Table element not found.');
+					}
+				}, 10);
+			});
+		};
+	});
 </script>
 
 <div class="m-5" id="questionnaire">
@@ -210,37 +60,39 @@
 	<div
 		class="mx-auto flex w-full max-w-4xl flex-col justify-center space-y-2 py-16 text-muted-foreground"
 	>
-		<div class="grid gap-2 space-y-3">
-			<h1 class="text-xl font-semibold tracking-tight">
-				Coded information (Interviewer to complete)
-			</h1>
-			<Separator class="mb-2 w-96" />
-			{#if isLoaded}
-				<active-table
-					maxColumns="3"
-					data={coded_info}
-					headerStyles={{ default: { backgroundColor: '#d6d6d630' } }}
-					rowHoverStyles={{ style: { backgroundColor: '#d6d6d630', transitionDuration: '0.05s' } }}
-					enterKeyMoveDown={true}
-					defaultText="Insert"
-					isDefaultTextRemovable={true}
-					isHeaderTextEditable={false}
-					maxRows="4"
-					displayAddNewColumn={false}
-					availableDefaultColumnTypes={['String']}
-					tableStyle={{
-						boxShadow: 'rgb(172 172 172 / 17%) 0px 0.5px 1px 0px',
-						width: '500px'
-					}}
-					overflow={{ maxWidth: isDesktop.current ? '500px' : '400px' }}
-					spellCheck={true}
-				></active-table>
-			{/if}
-		</div>
-
 		<div class="grid gap-2 py-10">
 			<h1 class="text-2xl font-semibold tracking-tight">PART I: ORGANIZATION/GROUP BACKGROUND</h1>
 			<Separator />
+			<div class="grid gap-2 space-y-3">
+				<h1 class="text-xl font-semibold tracking-tight">
+					Coded information (Interviewer to complete)
+				</h1>
+				<Separator class="mb-2 w-96" />
+				{#if isLoaded}
+					<active-table
+						id="codedinfo"
+						maxColumns="3"
+						data={coded_info}
+						headerStyles={{ default: { backgroundColor: '#d6d6d630' } }}
+						rowHoverStyles={{
+							style: { backgroundColor: '#d6d6d630', transitionDuration: '0.05s' }
+						}}
+						enterKeyMoveDown={true}
+						defaultText="Insert"
+						isDefaultTextRemovable={true}
+						isHeaderTextEditable={false}
+						maxRows="3"
+						displayAddNewColumn={false}
+						availableDefaultColumnTypes={['String']}
+						tableStyle={{
+							boxShadow: 'rgb(172 172 172 / 17%) 0px 0.5px 1px 0px',
+							width: '500px'
+						}}
+						overflow={{ maxWidth: isDesktop.current ? '500px' : '400px' }}
+						spellCheck={true}
+					></active-table>
+				{/if}
+			</div>
 			<div class="grid max-w-2xl gap-2 py-5">
 				<Label>1.1. Name of the organization or group</Label>
 				<Input class="max-w-xs" />
@@ -710,16 +562,16 @@
 				{/if}
 			</div>
 		</div>
-		<div id="kutton">
-			<Button
-				class="mx-auto justify-start"
-				onclick={() => {
-					setTimeout(() => {
-						window.print();
-					}, 50);
-				}}>Submit</Button
-			>
-		</div>
+		<Button
+			onclick={() => {
+				getInfo('codedinfo').then((res) => (codedinfo = res));
+			}}>Save</Button
+		>
+		<form method="post" id="kutton">
+			<input type="text" name="codedinfo" value={JSON.stringify(codedinfo)} />
+			<input type="text" name="codedinfo" value={JSON.stringify(codedinfo)} />
+			<Button type="submit">Button</Button>
+		</form>
 	</div>
 </div>
 
