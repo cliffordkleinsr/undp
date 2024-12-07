@@ -603,19 +603,20 @@
 				}}>Save</Button
 			>
 
-			<input type="text" name="codedinfo" value={JSON.stringify(codedinfo)} />
-			<input type="text" name="table1" value={JSON.stringify(table1)} />
-			<input type="text" name="table2" value={JSON.stringify(table2)} />
-			<input type="text" name="table3" value={JSON.stringify(table3)} />
-			<input type="text" name="table4" value={JSON.stringify(table4)} />
-			<input type="text" name="table5" value={JSON.stringify(table5)} />
-			<input type="text" name="table6" value={JSON.stringify(table6)} />
-			<input type="text" name="table7" value={JSON.stringify(table7)} />
-			<input type="text" name="table8" value={JSON.stringify(table8)} />
-			<input type="text" name="table9" value={JSON.stringify(table9)} />
-			<input type="text" name="table10" value={JSON.stringify(table10)} />
-			<input type="text" name="table11" value={JSON.stringify(table11)} />
-			<Button type="submit">Button</Button>
+			<input type="text" name="codedinfo" value={JSON.stringify(codedinfo)} hidden/>
+			<input type="text" name="table1" value={JSON.stringify(table1)} hidden/>
+			<input type="text" name="table2" value={JSON.stringify(table2)} hidden/>
+			<input type="text" name="table3" value={JSON.stringify(table3)} hidden/>
+			<input type="text" name="table4" value={JSON.stringify(table4)} hidden/>
+			<input type="text" name="table5" value={JSON.stringify(table5)} hidden/>
+			<input type="text" name="table6" value={JSON.stringify(table6)} hidden/>
+			<input type="text" name="table7" value={JSON.stringify(table7)} hidden/>
+			<input type="text" name="table8" value={JSON.stringify(table8)} hidden/>
+			<input type="text" name="table9" value={JSON.stringify(table9)} hidden/>
+			<input type="text" name="table10" value={JSON.stringify(table10)} hidden/>
+			<input type="text" name="table11" value={JSON.stringify(table11)} hidden/>
+			<Button type="submit" variant="secondary">Submit</Button>
+			<p class="text-destructive">You <span class="font-bold">Must</span> click on save before submiting!</p>
 		</form>
 	</div>
 </div>
