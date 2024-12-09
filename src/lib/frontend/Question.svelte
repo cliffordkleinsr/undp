@@ -590,7 +590,7 @@
 			<div class="grid gap-2">
 				{#if !save}
 					<p class="text-destructive">
-						You <span class="font-bold">Must</span> click on save before submiting!
+						Please click <span class="font-bold">Save</span> button to enable the submit button!
 					</p>
 				{/if}
 				<Button
@@ -625,11 +625,11 @@
 				<input type="text" name="table10" value={JSON.stringify(table10)} hidden />
 				<input type="text" name="table11" value={JSON.stringify(table11)} hidden />
 				{#if save}
-					<p class="text-green-500">
-						You <span class="font-bold">Can</span> now submit your response!
+					<p class="text-muted-foreground">
+						Please click the <span class="font-bold">Submit</span> button to submit your response
 					</p>
 				{/if}
-				<Button type="submit" variant="destructive" disabled={!save}>Submit</Button>
+				<Button type="submit" variant="secondary" disabled={!save}>Submit</Button>
 			</div>
 		</form>
 	</div>
