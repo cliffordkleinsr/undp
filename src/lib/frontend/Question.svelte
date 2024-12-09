@@ -39,6 +39,7 @@
 	let table11 = $state() as (string | number)[][] | undefined;
 
 	let isLoaded = $state(false);
+	let save = $state(false);
 	let getInfo = $state() as (element: string) => Promise<any>;
 	$effect(() => {
 		(async () => {
@@ -586,37 +587,50 @@
 					{/if}
 				</div>
 			</div>
-			<Button
-				onclick={() => {
-					getInfo('codedinfo').then((res) => (codedinfo = res));
-					getInfo('table1').then((res) => (table1 = res));
-					getInfo('table2').then((res) => (table2 = res));
-					getInfo('table3').then((res) => (table3 = res));
-					getInfo('table4').then((res) => (table4 = res));
-					getInfo('table5').then((res) => (table5 = res));
-					getInfo('table6').then((res) => (table6 = res));
-					getInfo('table7').then((res) => (table7 = res));
-					getInfo('table8').then((res) => (table8 = res));
-					getInfo('table9').then((res) => (table9 = res));
-					getInfo('table10').then((res) => (table10 = res));
-					getInfo('table11').then((res) => (table11 = res));
-				}}>Save</Button
-			>
+			<div class="grid gap-2">
+				{#if !save}
+					<p class="text-destructive">
+						You <span class="font-bold">Must</span> click on save before submiting!
+					</p>
+				{/if}
+				<Button
+					onclick={() => {
+						getInfo('codedinfo').then((res) => (codedinfo = res));
+						getInfo('table1').then((res) => (table1 = res));
+						getInfo('table2').then((res) => (table2 = res));
+						getInfo('table3').then((res) => (table3 = res));
+						getInfo('table4').then((res) => (table4 = res));
+						getInfo('table5').then((res) => (table5 = res));
+						getInfo('table6').then((res) => (table6 = res));
+						getInfo('table7').then((res) => (table7 = res));
+						getInfo('table8').then((res) => (table8 = res));
+						getInfo('table9').then((res) => (table9 = res));
+						getInfo('table10').then((res) => (table10 = res));
+						getInfo('table11').then((res) => (table11 = res));
+						save = !save;
+					}}
+					disabled={save}>Save</Button
+				>
 
-			<input type="text" name="codedinfo" value={JSON.stringify(codedinfo)} hidden/>
-			<input type="text" name="table1" value={JSON.stringify(table1)} hidden/>
-			<input type="text" name="table2" value={JSON.stringify(table2)} hidden/>
-			<input type="text" name="table3" value={JSON.stringify(table3)} hidden/>
-			<input type="text" name="table4" value={JSON.stringify(table4)} hidden/>
-			<input type="text" name="table5" value={JSON.stringify(table5)} hidden/>
-			<input type="text" name="table6" value={JSON.stringify(table6)} hidden/>
-			<input type="text" name="table7" value={JSON.stringify(table7)} hidden/>
-			<input type="text" name="table8" value={JSON.stringify(table8)} hidden/>
-			<input type="text" name="table9" value={JSON.stringify(table9)} hidden/>
-			<input type="text" name="table10" value={JSON.stringify(table10)} hidden/>
-			<input type="text" name="table11" value={JSON.stringify(table11)} hidden/>
-			<Button type="submit" variant="secondary">Submit</Button>
-			<p class="text-destructive">You <span class="font-bold">Must</span> click on save before submiting!</p>
+				<input type="text" name="codedinfo" value={JSON.stringify(codedinfo)} hidden />
+				<input type="text" name="table1" value={JSON.stringify(table1)} hidden />
+				<input type="text" name="table2" value={JSON.stringify(table2)} hidden />
+				<input type="text" name="table3" value={JSON.stringify(table3)} hidden />
+				<input type="text" name="table4" value={JSON.stringify(table4)} hidden />
+				<input type="text" name="table5" value={JSON.stringify(table5)} hidden />
+				<input type="text" name="table6" value={JSON.stringify(table6)} hidden />
+				<input type="text" name="table7" value={JSON.stringify(table7)} hidden />
+				<input type="text" name="table8" value={JSON.stringify(table8)} hidden />
+				<input type="text" name="table9" value={JSON.stringify(table9)} hidden />
+				<input type="text" name="table10" value={JSON.stringify(table10)} hidden />
+				<input type="text" name="table11" value={JSON.stringify(table11)} hidden />
+				{#if save}
+					<p class="text-green-500">
+						You <span class="font-bold">Can</span> now submit your response!
+					</p>
+				{/if}
+				<Button type="submit" variant="destructive" disabled={!save}>Submit</Button>
+			</div>
 		</form>
 	</div>
 </div>
